@@ -8,27 +8,13 @@ namespace console
         static void Main(string[] args)
         {
             Televisie televisie = new Televisie();
-            int kanaal, volume, keuze = 0;
+            int keuze = 0;
 
-            do
-            {
-                Console.Write("Geef een kanaal tussen 1 & 30: ");
-                kanaal = int.Parse(Console.ReadLine());
-            } while (kanaal < 1 || kanaal > 30);
-            
-            
-            televisie.Kanaal = kanaal;
-
-            do
-            {
-                Console.Write("Geef een het volume tussen 0 & 10: ");
-                volume = int.Parse(Console.ReadLine());
-            } while (volume < 0 || volume > 10);
             
 
-            televisie.Volume= volume;
+            Console.WriteLine($"Startconfiguratie: Kanaal: {televisie.Kanaal} - Volume {televisie.Volume}");
 
-            Console.WriteLine("1: Kanaal verhogen \n2: Kanaal verlagen \n3: Volume verhogen \n4: Volume verlagen \n5: Stoppen");
+            Console.Write("Maak een keuze: ");
             keuze= int.Parse(Console.ReadLine());
 
             while (keuze != 5)
@@ -50,7 +36,7 @@ namespace console
                     televisie.VerminderVolume();
                 }
 
-                Console.WriteLine("1: Kanaal verhogen \n2: Kanaal verlagen \n3: Volume verhogen \n4: Volume verlagen \n5: Stoppen");
+                Console.Write("Maak een keuze: ");
                 keuze = int.Parse(Console.ReadLine());
             }
            

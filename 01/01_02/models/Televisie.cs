@@ -52,8 +52,8 @@ namespace models
         //Deel 3: Constructors
         public Televisie()
         {
-            Kanaal= 0;
-            Volume= 0;
+            Kanaal= 1;
+            Volume= 5;
         }
 
         //Deel 4: Methodes
@@ -76,7 +76,7 @@ namespace models
         }
         public string ToonGegevens()
         {
-            return $"\nKanaal: {Kanaal}\nVolume: {Volume}";
+            return $"Huidige configuratie: Kanaal: {Kanaal} - Volume {Volume}";
         }
     }
 }

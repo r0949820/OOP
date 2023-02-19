@@ -40,7 +40,7 @@ namespace models
 
         public string ToonGegevens()
         {
-            return $"{Waarde}";
+            return $"De waarde van de teller is {Waarde}.";
         }
     }
 }

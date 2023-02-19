@@ -11,7 +11,7 @@ namespace console
             Teller teller = new Teller();
 
             //Waardes opvragen
-            Console.Write("Geef een keuze in van 0 tot 3: ");
+            Console.Write("Maak een keuze: ");
             int waarde = int.Parse(Console.ReadLine());
 
             //Gegevens toekenen aan object
@@ -29,7 +29,7 @@ namespace console
                 {
                     teller.Resetten();
                 }
-                Console.Write("Geef een keuze in van 0 tot 3: ");
+                Console.Write("Maak een keuze: ");
                 waarde = int.Parse(Console.ReadLine()) ;
             }
 

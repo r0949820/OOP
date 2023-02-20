@@ -9,7 +9,7 @@ namespace models
         private string _titel;
         private string _auteur;
         private int _bladzijden;
-        private int _dagen;
+        private double _dagen;
         private int _bladzijdenPerDag;
 
         public string Titel
@@ -30,7 +30,7 @@ namespace models
             set { _bladzijden = value; }
         }
 
-        public int Dagen
+        public double Dagen
         {
             get { return _dagen; }
             set { _dagen = value; }
@@ -53,14 +53,15 @@ namespace models
 
 
         
-        public int Berekening(int Bladzijden, int BladzijdenPerDag)
+        public double Berekening(double Bladzijden, double BladzijdenPerDag)
         {
-            int dagen;
+            double dagen;
 
             dagen = Bladzijden / BladzijdenPerDag;
-
-            dagen++;
-            return dagen;
+            
+            
+            
+            return Math.Ceiling(dagen);
         }
 
         public string ToonGegevens()

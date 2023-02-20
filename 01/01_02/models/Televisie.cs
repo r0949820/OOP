@@ -19,7 +19,7 @@ namespace models
                 {
                     _kanaal = 1;
                 }
-                if (value > 30)
+                else if (value > 30)
                 {
                     _kanaal = 30;
                 }
@@ -38,7 +38,7 @@ namespace models
                 {
                     _volume = 0;
                 }
-                if (value > 10)
+                else if (value > 10)
                 {
                     _volume = 10;
                 }
@@ -76,7 +76,7 @@ namespace models
         }
         public string ToonGegevens()
         {
-            return $"Huidige configuratie: Kanaal: {Kanaal} - Volume {Volume}";
+            return $"Huidige configuratie: Kanaal: {Kanaal} - Volume: {Volume}";
         }
     }
 }

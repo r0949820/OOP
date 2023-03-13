@@ -41,11 +41,7 @@ namespace console
             
                 auto.KeuzeMenu(keuze);
             
-                
-            
-            
-
-            
         }
+
     }
 }

@@ -8,7 +8,7 @@ namespace models
     public class Meting
     {
         //Atributen
-        private DateTime _tijdstip;
+        private DateTime _tijdstip = new DateTime();
         private double _gradenFahrenheit;
         private double _gradenCelsius;
 
@@ -31,15 +31,15 @@ namespace models
 
         //Constructor
         
-        public Meting(DateTime tijdstip, double gradenCelsius, double gradenFahrenheit)
+        public Meting(DateTime tijdstip, double gradenFahrenheit, double gradenCelsius)
         {
             Tijdstip = tijdstip;
             GradenFahrenheit = gradenFahrenheit;
             GradenCelsius = gradenCelsius;
         }
-        public Meting(DateTime tijdstip, double gradenCelsius) : this(tijdstip, gradenCelsius, TemperatuurConversies.ConverteerNaarGradenFahrenheit(gradenCelsius))
+        public Meting(DateTime tijdstip, double gradenCelsius) : this(tijdstip, TemperatuurConversies.ConverteerNaarGradenFahrenheit(gradenCelsius), gradenCelsius)
         {}
-        public Meting(double gradenCelsius) : this(DateTime.Now, gradenCelsius, TemperatuurConversies.ConverteerNaarGradenFahrenheit(gradenCelsius))
+        public Meting(double gradenCelsius) : this(DateTime.Now, TemperatuurConversies.ConverteerNaarGradenFahrenheit(gradenCelsius), gradenCelsius)
         {}
 
         //Methodes

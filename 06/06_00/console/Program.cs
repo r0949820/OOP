@@ -28,7 +28,7 @@ namespace console
 
             if (keuze == 1)
             {
-                List<ResultaatStudent> studenten = FileOperations.LeesStudenten();
+                List<ResultaatStudent> studenten = DAL.FileOperations.LeesStudenten();
 
                 foreach (ResultaatStudent student in studenten)
                 {

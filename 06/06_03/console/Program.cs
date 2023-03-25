@@ -1,4 +1,7 @@
-﻿using System;
+﻿using models;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace console
 {
@@ -6,7 +9,79 @@ namespace console
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            // vraag de gebruiker om een spel te kiezen
+            Console.Write("Kies een spel (1, 2, of 3): ");
+            int spelNummer = int.Parse(Console.ReadLine());
+            string spelBestand = $"spel-{spelNummer}.txt";
+
+            // lees de kaarten in uit het bestand
+            List<Kaart> kaarten = new List<Kaart>();
+            using (StreamReader reader = new StreamReader(spelBestand))
+            {
+                while (!reader.EndOfStream)
+                {
+                    string regel = reader.ReadLine();
+                    string[] gegevens = regel.Split(';');
+                    int waarde = int.Parse(gegevens[0]);
+                    string soort = gegevens[1];
+                    string kleur = gegevens[2];
+                    Kaart kaart = new Kaart(waarde, soort, kleur);
+                    kaarten.Add(kaart);
+                }
+            }
+
+            // start het spel
+            Console.WriteLine("Het spel begint.");
+            Console.WriteLine();
+
+            int scoreComputer = 0;
+            int scoreSpeler = 0;
+
+            foreach (Kaart kaart in kaarten)
+            {
+                // vraag de speler om een gok
+                Console.Write($"Geef een waarde: ");
+                int waardeGok = int.Parse(Console.ReadLine());
+
+                Console.Write($"Geef een soort: ");
+                string soortGok = Console.ReadLine();
+
+                Console.Write($"Geef een kleur: ");
+                string kleurGok = Console.ReadLine();
+
+                Kaart gok = new Kaart(waardeGok, soortGok, kleurGok);
+
+                // controleer of de gok correct is
+                if (gok.Equals(kaart))
+                {
+                    Console.WriteLine("U heeft goed gegokt!");
+                    scoreSpeler++;
+                }
+                else
+                {
+                    Console.WriteLine($"U heeft niet goed gegokt! De kaart was van de kleur {kaart.Kleur} met een waarde van {kaart.Waarde} en {kaart.Soort} als soort.");
+                    scoreComputer++;
+                }
+
+                Console.WriteLine($"Computer: {scoreComputer} - Speler: {scoreSpeler}");
+                Console.WriteLine();
+
+                // controleer of het spel afgelopen is
+                if (scoreComputer == 3)
+                {
+                    Console.WriteLine("Einde spel. De computer is de winnaar!");
+                    break;
+                }
+                else if (scoreSpeler == 3)
+                {
+                    Console.WriteLine("Einde spel. De speler is de winnaar!");
+                    break;
+                }
+            }
+
+            Console.WriteLine("Druk op een toets om het spel te beëindigen...");
+            Console.ReadKey();
         }
+    
     }
 }

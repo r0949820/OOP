@@ -8,112 +8,79 @@ namespace console
     {
         static void Main(string[] args)
         {
-            
+            // Laad de lijsten van opties in
+            List<string> siroop = FileOperations.LeesOpties(FileOperations.BestandSiropen);
+            List<string> topping = FileOperations.LeesOpties(FileOperations.BestandToppings);
+            List<string> smaken = FileOperations.LeesOpties(FileOperations.BestandSmaken);
+            List<string> glazuur = FileOperations.LeesOpties(FileOperations.BestandGlazuren);
+            List<string> vullingen = FileOperations.LeesOpties(FileOperations.BestandVullingen);
+
+            //Vraagt aan de gebruiker of het donut of koffie is
             Console.WriteLine("0. Donut");
             Console.WriteLine("1. Koffie");
-            Console.WriteLine();
-            Console.Write("Geef een optie op: ");
+            Console.Write("\nGeef een optie op: ");
             string keuze = Console.ReadLine().ToLower();
 
             if (keuze == "donut")
             {
-                List<string> siroop = FileOperations.LeesOpties(FileOperations.BestandSiropen);
-                List<string> topping = FileOperations.LeesOpties(FileOperations.BestandToppings);
-                List<string> glazuur = FileOperations.LeesOpties(FileOperations.BestandGlazuren);
-                List<string> vullingen = FileOperations.LeesOpties(FileOperations.BestandVullingen);
+                Console.WriteLine();
+                // Vraag de gebruiker om hun keuzes te maken voor de donut
+                // Geef de opties weer en vraag om een keuze voor elk van de opties
+                int siroopKeuze = ToonOptiesEnVraagKeuze(siroop, "siroop");
+                int toppingKeuze = ToonOptiesEnVraagKeuze(topping, "topping");
+                int glazuurKeuze = ToonOptiesEnVraagKeuze(glazuur, "glazuur");
+                int vullingKeuze = ToonOptiesEnVraagKeuze(vullingen, "vulling");
+                Console.WriteLine();
 
-                Console.WriteLine();
-                
-                for (int i = 0; i < siroop.Count; i++)
-                {
-                    Console.WriteLine($"{i}. {siroop[i]}");
-                }
-                Console.WriteLine();
-                Console.Write("Kies een siroop: ");
-                int siroopKeuze = int.Parse(Console.ReadLine());
-
-                Console.WriteLine();
-                for (int i = 0; i < topping.Count; i++)
-                {
-                    Console.WriteLine($"{i}. {topping[i]}");
-                }
-                Console.WriteLine();
-                Console.Write("Kies een topping: ");
-                int toppingKeuze = int.Parse(Console.ReadLine());
-
-                Console.WriteLine();
-                
-                for (int i = 0; i < glazuur.Count; i++)
-                {
-                    Console.WriteLine($"{i}. {glazuur[i]}");
-                }
-                Console.WriteLine();
-                Console.Write("Kies een glazuur: ");
-                int glazuurKeuze = int.Parse(Console.ReadLine());
-
-                Console.WriteLine();
-                
-                for (int i = 0; i < vullingen.Count; i++)
-                {
-                    Console.WriteLine($"{i}. {vullingen[i]}");
-                }
-                Console.WriteLine();
-                Console.Write("Kies een vulling: ");
-                int vullingKeuze = int.Parse(Console.ReadLine());
-                
+                // Maak een nieuwe Donut instantie met de gekozen siroop, topping, glazuur en vulling
                 Donut donut = new Donut(siroop[siroopKeuze], topping[toppingKeuze], glazuur[glazuurKeuze], vullingen[vullingKeuze]);
-                Console.WriteLine();
-                Console.WriteLine("Bedankt voor uw bestelling!");
-                Console.WriteLine();
-                Console.WriteLine("Uw bestelling:");
-                Console.WriteLine(donut.ToonOverzicht());
+
+                // Print de bestellingsoverzicht van de aangemaakte donut
+                ToonBestelling(donut.ToonOverzicht());
             }
             else if (keuze == "koffie")
             {
-                List<string> siropen = FileOperations.LeesOpties(FileOperations.BestandSiropen);
-                List<string> toppings = FileOperations.LeesOpties(FileOperations.BestandToppings);
-                List<string> smaken = FileOperations.LeesOpties(FileOperations.BestandSmaken);
+                Console.WriteLine();
+                // Vraag de gebruiker om hun keuzes te maken voor de koffie
+                // Geef de opties weer en vraag om een keuze voor elk van de opties
+                int siroopKeuze = ToonOptiesEnVraagKeuze(siroop, "siroop");
+                int toppingKeuze = ToonOptiesEnVraagKeuze(topping, "topping");
+                int smakenKeuze = ToonOptiesEnVraagKeuze(smaken, "smaak");
+                bool metSlagroom = VraagJaOfNee("Wenst u slagroom: ");
 
-                Console.WriteLine();
-                
-                for (int i = 0; i < siropen.Count; i++)
-                {
-                    Console.WriteLine($"{i}. {siropen[i]}");
-                }
-                Console.WriteLine();
-                Console.Write("Kies een siroop: ");
-                int siroopKeuze = int.Parse(Console.ReadLine());
+                // Maak een nieuwe Koffie instantie met de gekozen siroop, toppings, smaken en metSlagroom
+                Koffie koffie = new Koffie(siroop[siroopKeuze], topping[toppingKeuze], smaken[smakenKeuze], metSlagroom);
 
-                Console.WriteLine();
-                for (int i = 0; i < toppings.Count; i++)
-                {
-                    Console.WriteLine($"{i}. {toppings[i]}");
-                }
-                Console.WriteLine();
-                Console.Write("Kies een topping: ");
-                int toppingKeuze = int.Parse(Console.ReadLine());
-
-                Console.WriteLine();
-                for (int i = 0; i < smaken.Count; i++)
-                {
-                    Console.WriteLine($"{i}. {smaken[i]}");
-                }
-                Console.WriteLine();
-                Console.Write("Kies een smaak: ");
-                int smakenKeuze = int.Parse(Console.ReadLine());
-                Console.WriteLine();
-                Console.Write("Wenst u slagroom: ");
-                string slagroom = Console.ReadLine();
-                bool metSlagroom = (slagroom.ToLower() == "ja");
-                
-
-                Koffie koffie = new Koffie(siropen[siroopKeuze], toppings[toppingKeuze], smaken[smakenKeuze], metSlagroom);
-                Console.WriteLine();
-                Console.WriteLine("Bedankt voor uw bestelling!");
-                Console.WriteLine();
-                Console.WriteLine("Uw bestelling:");
-                Console.WriteLine(koffie.ToonOverzicht());
+                // Print de bestellingsoverzicht van de aangemaakte Koffie
+                ToonBestelling(koffie.ToonOverzicht());
             }
             }
+        private static int ToonOptiesEnVraagKeuze(List<string> opties, string optieNaam)
+        {
+            //De for-lus loopt door de lijst en toont de index en de naam.
+            //Vervolgens wordt de gebruiker gevraagd om te kiezen door een nummer in te voeren. 
+            //De keuze van de gebruiker wordt opgeslagen in een variabele.
+            for (int i = 0; i < opties.Count; i++)
+            {
+                Console.WriteLine($"{i}. {opties[i]}");
+            }
+            Console.WriteLine();
+            Console.Write($"Kies een {optieNaam}: ");
+            int keuze = int.Parse(Console.ReadLine());
+            Console.WriteLine();
+            return keuze;
+        }
+        private static bool VraagJaOfNee(string vraag)
+        {
+            Console.Write(vraag);
+            string antwoord = Console.ReadLine().ToLower();
+            return (antwoord == "ja");
+        }
+        private static void ToonBestelling(string bestellingsoverzicht)
+        {
+            Console.WriteLine($"\nBedankt voor uw bestelling!\n" +
+                               $"\nUw bestelling:\n" +
+                               $"{bestellingsoverzicht}");
+        }
     }
 }

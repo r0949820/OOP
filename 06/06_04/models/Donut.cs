@@ -60,7 +60,7 @@ namespace models
         }
         public override string ToonOverzicht()
         {
-            string overzicht = $"Type: {GetType().Name}\n{base.ToonOverzicht()}";
+            string overzicht = $"\nType: {GetType().Name}\n{base.ToonOverzicht()}";
 
             overzicht += $"\nGlazuur: {Glazuur}\nVulling: {Vulling}\nPrijs: {BerekenPrijs():N2} euro\n";
 

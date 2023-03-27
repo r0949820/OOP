@@ -1,14 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace models
+﻿namespace models
 {
     public class Kaart
     {
-        public int Waarde { get; }
-        public string Soort { get; }
-        public string Kleur { get; }
+        // attributen
+        private int _waarde;
+        private string _soort;
+        private string _kleur;
+
+        // properties
+        public int Waarde
+        {
+            get { return _waarde; }
+            set { _waarde = value; }
+        }
+        public string Soort
+        {
+            get { return _soort; }
+            set { _soort = value; }
+        }
+        public string Kleur
+        {
+            get { return _kleur; }
+            set { _kleur = value; }
+        }
 
         public Kaart(int waarde, string soort, string kleur)
         {
@@ -17,17 +31,24 @@ namespace models
             Kleur = kleur;
         }
 
+        // Overrides the Equals method to compare two Kaart objects for equality based on their Waarde, Soort, and Kleur properties.
+        // Returns true if the properties of the two Kaart objects are equal, false otherwise.
         public override bool Equals(object obj)
         {
-            if (obj == null || GetType() != obj.GetType())
+            if (obj is Kaart kaart)
+            {
+                return this.Waarde == kaart.Waarde &&
+                    this.Soort == kaart.Soort &&
+                    this.Kleur == kaart.Kleur;
+            }
+            else
             {
                 return false;
             }
-
-            Kaart otherKaart = (Kaart)obj;
-            return (Waarde == otherKaart.Waarde) && (Soort == otherKaart.Soort) && (Kleur == otherKaart.Kleur);
         }
 
+        // Overrides the GetHashCode method to generate a unique hashcode for each Kaart object based on its Waarde, Soort, and Kleur properties.
+        // Returns a unique integer hashcode that can be used to efficiently store and retrieve Kaart objects in hash-based data structures like dictionaries and hash tables.
         public override int GetHashCode()
         {
             return Waarde ^ Soort.GetHashCode() ^ Kleur.GetHashCode();
@@ -35,7 +56,7 @@ namespace models
 
         public override string ToString()
         {
-            return Waarde + " " + Soort + " " + Kleur;
+            return $"{Waarde} {Soort} {Kleur}";
         }
     }
 }

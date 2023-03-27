@@ -1,7 +1,6 @@
 ﻿using models;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace console
 {
@@ -11,24 +10,10 @@ namespace console
         {
             // vraag de gebruiker om een spel te kiezen
             Console.Write("Kies een spel (1, 2, of 3): ");
-            int spelNummer = int.Parse(Console.ReadLine());
-            string spelBestand = $"spel-{spelNummer}.txt";
+            string spelBestand = Console.ReadLine();
 
             // lees de kaarten in uit het bestand
-            List<Kaart> kaarten = new List<Kaart>();
-            using (StreamReader reader = new StreamReader(spelBestand))
-            {
-                while (!reader.EndOfStream)
-                {
-                    string regel = reader.ReadLine();
-                    string[] gegevens = regel.Split(';');
-                    int waarde = int.Parse(gegevens[0]);
-                    string soort = gegevens[1];
-                    string kleur = gegevens[2];
-                    Kaart kaart = new Kaart(waarde, soort, kleur);
-                    kaarten.Add(kaart);
-                }
-            }
+            List<Kaart> kaarten = FileOperations.LeesFile(spelBestand);
 
             // start het spel
             Console.WriteLine("Het spel begint.");
@@ -78,10 +63,7 @@ namespace console
                     break;
                 }
             }
-
-            Console.WriteLine("Druk op een toets om het spel te beëindigen...");
-            Console.ReadKey();
         }
-    
+
     }
 }
